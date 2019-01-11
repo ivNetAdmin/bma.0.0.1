@@ -1,0 +1,34 @@
+{
+  "name": "bma",
+  "version": "0.0.1",
+  "description": "Benchmark Accountants Website",
+  "main": "index.js",
+  "dependencies": {
+    "gulp": "^4.0.0",
+    "jquery": "^3.3.1",
+    "bootstrap": "^4.2.1"
+  },
+  "devDependencies": {
+    "autoprefixer": "^9.4.4",
+    "browser-sync": "^2.26.3",
+    "cssnano": "^4.1.8",
+    "del": "^3.0.0",
+    "gulp-postcss": "^8.0.0",
+    "gulp-sass": "^4.0.2",
+    "gulp-sourcemaps": "^2.6.4",
+    "node-sass": "^4.11.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ivNetAdmin/bma.0.0.1.git"
+  },
+  "author": "ivNet ltd",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ivNetAdmin/bma.0.0.1/issues"
+  },
+  "homepage": "https://github.com/ivNetAdmin/bma.0.0.1#readme"
+}

@@ -1,0 +1,19 @@
+1. npm i -g gulp-cli
+2. create project folder
+3. create folders
+   site
+      css
+      js
+      assests
+4. npm install gulp --save-dev
+5. npm install jquery --save
+6. npm install bootstrap --save
+7. npm install del --save-dev
+8. npm install node-sass gulp-sass --save-dev
+9. npm install gulp-sourcemaps --save-dev
+10. npm install gulp-postcss --save-dev
+11. npm install autoprefixer --save-dev
+12. npm install cssnano --save-dev
+13. npm install browser-sync --save-dev
+14. npm init
+15. create gulpfile.js
