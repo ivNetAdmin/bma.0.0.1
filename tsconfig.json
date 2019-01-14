@@ -1,0 +1,9 @@
+{
+   "files": [
+       "./typescript/site.ts"
+   ],
+   "compilerOptions": {
+       "noImplicitAny": true,
+       "target": "es5"
+   }
+}
