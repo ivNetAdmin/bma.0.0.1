@@ -1,4 +1,6 @@
 function hello(compiler) {
     console.log('Hello from ${compiler}');
 }
-hello("mum");
+hello("zozo");
+
+//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNpdGUudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsU0FBUyxLQUFLLENBQUMsUUFBZ0I7SUFDNUIsT0FBTyxDQUFDLEdBQUcsQ0FBQyx3QkFBd0IsQ0FBQyxDQUFDO0FBQ3pDLENBQUM7QUFDRCxLQUFLLENBQUMsTUFBTSxDQUFDLENBQUMiLCJmaWxlIjoic2l0ZS5qcyIsInNvdXJjZXNDb250ZW50IjpbImZ1bmN0aW9uIGhlbGxvKGNvbXBpbGVyOiBzdHJpbmcpIHtcclxuICAgY29uc29sZS5sb2coJ0hlbGxvIGZyb20gJHtjb21waWxlcn0nKTtcclxufVxyXG5oZWxsbyhcInpvem9cIik7Il19

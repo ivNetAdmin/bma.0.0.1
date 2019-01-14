@@ -40,7 +40,6 @@ function browserSync() {
      },
      port: 3000
    });
-  // done();
  };
 
  function browserReload(done) {
@@ -98,22 +97,35 @@ function html(){
    );
 };
 
+
 function tscript()
 {
    return(
       gulp
-         .src = tsProject.src()
-         .pipe(tsProject())
-         .pipe(gulp.dest(paths.jscript.dest))
+         .src(paths.files.tscript)
+         .pipe(sourcemaps.init())
+         .pipe(ts())
+         .pipe(sourcemaps.write())
+         .pipe(gulp.dest(paths.jscript.dest))        
          .pipe(browsersync.stream())
    );
 };
 
+// function tscript()
+// {
+//    return(
+//       gulp
+//          .src = tsProject.src()
+//          .pipe(tsProject())
+//          .pipe(gulp.dest(paths.jscript.dest))
+//          .pipe(browsersync.stream())
+//    );
+// };
+
 function watchfiles(){
-   gulp.watch(paths.files.sass, style); 
-   gulp.watch(paths.files.pages, html); 
-   //gulp.watch(paths.files.tscript, gulp.series(tscript, browserReload));
-   gulp.watch(paths.files.tscript, tscript, browserReload);
+   gulp.watch(paths.files.pages, gulp.series(html, browserReload));    
+   gulp.watch(paths.files.sass, gulp.series(style, browserReload));     
+   gulp.watch(paths.files.tscript, gulp.series(tscript, browserReload));
 };
 
 // complex tasks
