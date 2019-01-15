@@ -7,9 +7,9 @@ var gulp = require("gulp"),
     autoprefixer = require("autoprefixer"),
     cssnano = require("cssnano"),
     ts = require("gulp-typescript"),
+    imagemin = require('gulp-imagemin'),
+    minify = require('gulp-minify'),
     browsersync = require("browser-sync").create();
-    
-    var tsProject = ts.createProject("tsconfig.json");
 
 // paths
 var paths = {
@@ -19,16 +19,24 @@ var paths = {
    style: {
       dest: "./site/css"
    },
-   jscript: {      
+   jscript: {   
+      src: "./javascript/*",   
       dest: "./site/js"
+   },
+   image: {      
+      dest: "./site/assets/images"
    },
    files: {
       html: "./site/*.html",
       pages: "./pages/*.html",
+      images: "./images/*",
       sass: "./sass/*.scss",
-      bstrap: "./node_modules/bootstrap/scss/bootstrap.scss",
+      bsstrapcss: "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+      bsstrapjs: "./node_modules/bootstrap/dist/js/bootstrap.min.js",
       jquery: "./node_modules/jquery/dist/jquery.min.js",
       tscript: "./typescript/*.ts",
+      parallaxcss: "./node_modules/universal-parallax/dist/universal-parallax.min.css",
+      parallaxjs: "./node_modules/universal-parallax/dist/universal-parallax.min.js",
    }
 };
 
@@ -48,7 +56,7 @@ function browserSync() {
  }
  
  function clean() {
-   return del([paths.style.dest, paths.jscript.dest, paths.files.html]);
+   return del([paths.style.dest, paths.jscript.dest, paths.image.dest, paths.files.html]);
  };
 
 function style(){
@@ -65,10 +73,10 @@ function style(){
    );
 };
 
-function bootstrap(){
+function librarycss(){
    return (
       gulp
-         .src(paths.files.bstrap)
+         .src([paths.files.bsstrapcss, paths.files.parallaxcss])
          .on("error",sass.logError)
          .pipe(sourcemaps.init())
          .pipe(sass())
@@ -79,11 +87,48 @@ function bootstrap(){
    );
 };
 
-function jscript(){
+// function tscript()
+// {
+//    return(
+//       gulp
+//          .src(paths.files.tscript)
+//          .pipe(sourcemaps.init())
+//          .pipe(ts())
+//          .pipe(sourcemaps.write())
+//          .pipe(gulp.dest(paths.jscript.dest))        
+//          .pipe(browsersync.stream())
+//    );
+// };
+
+function javascript(){
    return (
       gulp
-         .src(paths.files.jquery)
+         .src([paths.jscript.src])
+         .pipe(sourcemaps.init())
+         .pipe(minify())
+         .pipe(sourcemaps.write())
          .pipe(gulp.dest(paths.jscript.dest))
+         .pipe(browsersync.stream())
+   );
+};
+
+function libraryjs(){
+   return (
+      gulp
+         .src([paths.files.jquery, paths.files.bsstrapjs, paths.files.parallaxjs])
+         .pipe(sourcemaps.init())
+         .pipe(sourcemaps.write())
+         .pipe(gulp.dest(paths.jscript.dest))
+         .pipe(browsersync.stream())
+   );
+};
+
+function image(){
+   return (
+      gulp
+         .src(paths.files.images)
+         .pipe(imagemin())
+         .pipe(gulp.dest(paths.image.dest))
          .pipe(browsersync.stream())
    );
 };
@@ -93,20 +138,6 @@ function html(){
       gulp
          .src(paths.files.pages)
          .pipe(gulp.dest(paths.site.dest))
-         .pipe(browsersync.stream())
-   );
-};
-
-
-function tscript()
-{
-   return(
-      gulp
-         .src(paths.files.tscript)
-         .pipe(sourcemaps.init())
-         .pipe(ts())
-         .pipe(sourcemaps.write())
-         .pipe(gulp.dest(paths.jscript.dest))        
          .pipe(browsersync.stream())
    );
 };
@@ -125,21 +156,22 @@ function tscript()
 function watchfiles(){
    gulp.watch(paths.files.pages, gulp.series(html, browserReload));    
    gulp.watch(paths.files.sass, gulp.series(style, browserReload));     
-   gulp.watch(paths.files.tscript, gulp.series(tscript, browserReload));
+   gulp.watch(paths.jscript.src, gulp.series(javascript, browserReload));
 };
 
 // complex tasks
-const build = gulp.series(clean, html, gulp.parallel(bootstrap, style, jscript, tscript));
+const build = gulp.series(clean, html, gulp.parallel(librarycss, style, libraryjs, javascript, image));
 const watch = gulp.parallel(browserSync, watchfiles);
 
  // export
  exports.clean = clean;
  exports.style = style;
- exports.bootstrap = bootstrap;
- exports.jscript = jscript;
- exports.tscript = tscript;
+ exports.librarycss = librarycss;
+ exports.libraryjs = libraryjs;
+ exports.javascript = javascript;
  exports.html = html;
  exports.watch = watch;
  exports.build = build;
- 
+ exports.image = image;
+
  exports.default = watch;
