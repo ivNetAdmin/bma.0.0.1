@@ -6,7 +6,7 @@ var gulp = require("gulp"),
     postcss = require("gulp-postcss"),
     autoprefixer = require("autoprefixer"),
     cssnano = require("cssnano"),
-    ts = require("gulp-typescript"),
+    //ts = require("gulp-typescript"),
     imagemin = require('gulp-imagemin'),
     minify = require('gulp-minify'),
     browsersync = require("browser-sync").create();
@@ -26,12 +26,17 @@ var paths = {
    image: {      
       dest: "./site/assets/images"
    },
+   fonts: {   
+      src: "./fonts/*",   
+      dest: "./site/fonts"
+   },
    files: {
       html: "./site/*.html",
       pages: "./pages/*.html",
       images: "./images/*",
       sass: "./sass/*.scss",
-      bsstrapcss: "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+      bstraprbcss: "./node_modules/bootstrap/dist/css/bootstrap-reboot.min.css",
+      bstrapcss: "./node_modules/bootstrap/dist/css/bootstrap.min.css",
       bsstrapjs: "./node_modules/bootstrap/dist/js/bootstrap.min.js",
       jquery: "./node_modules/jquery/dist/jquery.min.js",
       tscript: "./typescript/*.ts",
@@ -56,7 +61,7 @@ function browserSync() {
  }
  
  function clean() {
-   return del([paths.style.dest, paths.jscript.dest, paths.image.dest, paths.files.html]);
+   return del([paths.style.dest, paths.jscript.dest, paths.image.dest, paths.fonts.dest, paths.files.html]);
  };
 
 function style(){
@@ -76,7 +81,7 @@ function style(){
 function librarycss(){
    return (
       gulp
-         .src([paths.files.bsstrapcss, paths.files.parallaxcss])
+         .src([paths.files.bstraprbcss, paths.files.bstrapcss, paths.files.parallaxcss])
          .on("error",sass.logError)
          .pipe(sourcemaps.init())
          .pipe(sass())
@@ -133,6 +138,15 @@ function image(){
    );
 };
 
+function font(){
+   return (
+      gulp
+         .src(paths.fonts.src)              
+         .pipe(gulp.dest(paths.fonts.dest))
+         .pipe(browsersync.stream())
+   );
+};
+
 function html(){
    return (
       gulp
@@ -160,7 +174,7 @@ function watchfiles(){
 };
 
 // complex tasks
-const build = gulp.series(clean, html, gulp.parallel(librarycss, style, libraryjs, javascript, image));
+const build = gulp.series(clean, html, gulp.parallel(librarycss, style, libraryjs, javascript, image, font));
 const watch = gulp.parallel(browserSync, watchfiles);
 
  // export
@@ -173,5 +187,6 @@ const watch = gulp.parallel(browserSync, watchfiles);
  exports.watch = watch;
  exports.build = build;
  exports.image = image;
+ exports.font = font;
 
  exports.default = watch;

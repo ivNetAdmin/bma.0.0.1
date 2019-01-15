@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    src: url(Poppins_400_normal.eot); /* http://fonts.gstatic.com/s/poppins/v5/pxiEyp8kv8JHgFVrJJfedg.eot */
+    src: local('☺'),
+        url(Poppins_400_normal.eot?#iefix) format('embedded-opentype'), /* http://fonts.gstatic.com/s/poppins/v5/pxiEyp8kv8JHgFVrJJfedg.eot */
+        url(Poppins_400_normal.woff2) format('woff2'), /* http://fonts.gstatic.com/s/poppins/v5/pxiEyp8kv8JHgFVrJJfecg.woff2 */
+        url(Poppins_400_normal.woff) format('woff'), /* http://fonts.gstatic.com/s/poppins/v5/pxiEyp8kv8JHgFVrJJfedA.woff */
+        url(Poppins_400_normal.ttf) format('truetype'), /* http://fonts.gstatic.com/s/poppins/v5/pxiEyp8kv8JHgFVrJJfed3FHGPc.ttf */
+        url(Poppins_400_normal.svg#Poppins_400_normal) format('svg'); /* http://fonts.gstatic.com/l/font?kit=pxiEyp8kv8JHgFVrJJfedQ&skey=87759fb096548f6d&v=v5#Poppins */
+}
