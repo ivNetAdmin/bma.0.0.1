@@ -5,7 +5,7 @@ $(function() {
 $(window).scroll(function() {    
     var scroll = $(window).scrollTop();
 
-    if (scroll >= 10) {
+    if (scroll >= 180) {
         $('.top-nav').addClass('light-header');
         $('.top-nav').addClass('light-header-bg');
         $('.top-nav').removeClass('dark-header-bg');
@@ -23,3 +23,12 @@ $(window).scroll(function() {
         $('.bmalogo').removeClass('hide');
    }
 });
+
+window.onresize = displayWindowSize;
+window.onload = displayWindowSize;
+
+function displayWindowSize() {
+    var myWidth = window.innerWidth;
+    var myHeight = window.innerHeight;
+    document.getElementById("screenWidth").innerHTML = myWidth + "x" + myHeight;
+};
